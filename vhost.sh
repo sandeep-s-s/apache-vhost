@@ -13,12 +13,6 @@ if [ -z "$domain" ];then
     exit 3
 fi
 
-# if [ "$domain" != "sandeep.com" ];then
-#     echo "Incorrect Server. As of now only availabl server is staging"
-#     exit 4
-# fi
-
-
 cd /var/www/html && mkdir $domain
 cd /etc/apache2/sites-available 
 echo "
