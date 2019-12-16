@@ -1,5 +1,13 @@
-#!/bin/sh
-
+#!/bin/bash
+isVhostExist () {
+  domainVal=$(a2query -s|awk '$1 == "'$domain'" {print $1}')
+  if [ ! -z "$domainVal" -a "$domainVal" != " " ]
+  then
+    return 0
+  else
+      return 1
+  fi
+}
 echo "=========================================="
 echo "	Welcome to Vhost "
 echo "=========================================="
@@ -13,6 +21,13 @@ if [ -z "$domain" ];then
     exit 3
 fi
 
+
+if isVhostExist $1; then 
+  echo "##################################################"
+  echo "  Unable to create $domain ; already exists "
+  echo "##################################################"
+  exit 1
+fi
 cd /var/www/html && mkdir $domain
 cd /etc/apache2/sites-available 
 echo "
